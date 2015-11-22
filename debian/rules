@@ -1,0 +1,63 @@
+#!/usr/bin/make -f
+
+DEBVERS := $(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
+VERSION := $(shell echo '$(DEBVERS)' | sed -e 's/^[[:digit:]]*://' -e 's/[~-].*//')
+
+build: build-stamp
+build-stamp:	
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp	
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_prep
+	dh_installdirs
+
+	# Untar upstream version
+	rm -Rf $(CURDIR)/debian/untar
+	mkdir $(CURDIR)/debian/untar
+	tar --directory $(CURDIR)/debian/untar -xzf IPMIView_V$(VERSION)_bundleJRE_Linux_x64_*.tar.gz
+
+	# Move relevant files into usr/lib/ipmiview
+	mv $(CURDIR)/debian/untar/*/libiKVM64.so $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
+	mv $(CURDIR)/debian/untar/*/libSharedLibrary64.so $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
+	mv $(CURDIR)/debian/untar/*/iKVM.jar $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
+	mv $(CURDIR)/debian/untar/*/iKVMMicroBlade.jar $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
+	mv $(CURDIR)/debian/untar/*/JViewerX9.jar $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
+	mv $(CURDIR)/debian/untar/*/IPMIView20.jar $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
+	mv $(CURDIR)/debian/untar/*/TrapView.jar $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
+
+    # Move relevant files into usr/lib/ipmiview
+	install -m755 $(CURDIR)/ipmiview.sh $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
+	install -m755 $(CURDIR)/ikvm.sh $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
+
+	# Create desktop item for menu
+	cp ipmiview.desktop $(CURDIR)/debian/ipmiview/usr/share/applications
+
+	# Create symlink in /usr/bin
+	dh_link usr/lib/ipmiview/ipmiview.sh usr/bin/ipmiview
+	dh_link usr/lib/ipmiview/ikvm.sh usr/bin/ikvm
+
+
+binary-indep: build install
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_install
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install

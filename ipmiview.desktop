@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Super Micro IPMIView
+Comment=IPMIView is a GUI-based software application that allows administrators to manage multiple target systems through BMC.
+Exec=/usr/bin/ipmiview
+Terminal=false
+Type=Application
+Icon=/usr/lib/ipmiview/icon.png
+Categories=GNOME;GTK;Development;

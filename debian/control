@@ -1,0 +1,15 @@
+Source: ipmiview
+Section: vcs
+Priority: optional
+Maintainer: Casper Langemeijer <casper@langemeijer.eu>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.8.4
+Homepage: http://www.supermicro.nl/solutions/SMS_IPMI.cfm
+
+Package: ipmiview
+Architecture: amd64
+Depends: openjdk-7-jre | oracle-java7-installer | oracle-java8-installer | oracle-java6-installer | sun-java7-jdk | sun-java8-jdk | sun-java6-jdk, libc6
+Recommends: fonts-dejavu-core, fonts-freefont-otf, ttf-bitstream-vera, fonts-cantarell, fonts-droid, ttf-mscorefonts-installer
+Description: A GUI-based software application that allows administrators
+ to manage multiple target systems through BMC. IPMIView V2.0 supports
+ Supermicro’s BMCs that adheres to either IPMI v1.5 or v2.0.
