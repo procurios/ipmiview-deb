@@ -3,14 +3,15 @@ ipmiview-deb
 =============
 
 Build scripts to easily create a amd64 `.deb` package for [Super Micro IPMIView](http://www.supermicro.nl/solutions/SMS_IPMI.cfm).
-32 bit is not supported but should be trivial to add.
+32 bit is not supported but should be trivial to add. Tested on Ubuntu trusty and wily probably works on Debian too.
 
 The created package provides:
 
  * Desktop shortcut (makes 'Super Micro IPMIView' appear in your desktop menu)
  * `ipmiview` cli command, starts the IPMIView application
- * `ikvm` cli command, to start a KVM session without using the IPMIView application
-    Usage: `/usr/bin/ikvm <ip> <username> <password>`
+ * `ikvm` cli command, to start a KVM session without using the IPMIView application.
+ 
+ Usage: `ikvm <ip> <username> <password>`
 
 Dependencies
 ------------
