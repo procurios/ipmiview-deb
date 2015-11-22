@@ -47,7 +47,7 @@ Installing
 Install the package with the `dpkg` command:
 
 ```sh
-dpkg -i PhpStorm...
+dpkg -i ipmiview...
 ```
 
 Alternatively, you can create your own [simple repo](https://wiki.debian.org/DebianRepository/HowTo/TrivialRepository) or 
