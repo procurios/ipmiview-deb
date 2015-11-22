@@ -37,6 +37,8 @@ install: build
 	install -m755 $(CURDIR)/ipmiview.sh $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
 	install -m755 $(CURDIR)/ikvm.sh $(CURDIR)/debian/ipmiview/usr/lib/ipmiview
 
+	install -m644 $(CURDIR)/ipmiview.png $(CURDIR)/debian/ipmiview/usr/lib/ipmiview/icon.png
+
 	# Create desktop item for menu
 	cp ipmiview.desktop $(CURDIR)/debian/ipmiview/usr/share/applications
 
